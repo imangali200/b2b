@@ -27,6 +27,6 @@ export class RegisterDto {
     description: 'write your phonenumber',
     example: '+77777777777',
   })
-  @IsNumber()
+  @IsString()
   phoneNumber: string;
 }
