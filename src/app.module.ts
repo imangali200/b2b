@@ -9,6 +9,7 @@ import { UserModule } from './features/user/user.module';
 import { TokenService } from './features/auth/servers/token.service';
 import { BaseService } from './core/services/base.service';
 import { JwtModule } from '@nestjs/jwt';
+import * as fs from 'fs';
 
 @Module({
   imports: [
@@ -23,16 +24,20 @@ import { JwtModule } from '@nestjs/jwt';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        username: configService.get('DB_USERNAME'),
         host: configService.get('DB_HOST'),
-        port: +configService.get('DB_PORT'),
-        database: configService.get('DB_DATABASE'),
+        port: +configService.get<number>('DB_PORT')!,
+        username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
         entities: [UserEntity],
         synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
       inject: [ConfigService],
     }),
+
     AuthModule,
     UserModule,
     ConfigModule.forRoot({ isGlobal: true }),
