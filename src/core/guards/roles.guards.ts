@@ -5,9 +5,9 @@ import { UserRoles } from "../db/enum/user_roles";
 import { Roles_Key } from "../decorators/auth.decorators";
 
 export class RolesGuard implements CanActivate{
-    constructor(private readonly reflectore:Reflector){}
+    constructor(private readonly reflector:Reflector){}
     canActivate(context: ExecutionContext): boolean{
-        const requiredUser = this.reflectore.getAllAndOverride<UserRoles>(
+        const requiredUser = this.reflector.getAllAndOverride<UserRoles>(
             Roles_Key,
             [context.getHandler(),context.getClass()]
         )

@@ -40,7 +40,7 @@ import * as fs from 'fs';
 
     AuthModule,
     UserModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+
 
     JwtModule.registerAsync({
       imports: [ConfigModule],

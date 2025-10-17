@@ -5,6 +5,7 @@ import { UserEntity } from 'src/core/db/entities/user.entity';
 
 export type PayLoadUser = {
   id: number;
+  role:string;
   email: string;
   type: 'access' | 'refresh';
 };
@@ -18,11 +19,13 @@ export class TokenService {
   async createToken(user: UserEntity) {
     const payloadAccessToken: PayLoadUser = {
       id: user.id,
+      role:user.role,
       email: user.email,
       type: 'access',
     };
     const payloadRefreshToken: PayLoadUser = {
       id: user.id,
+      role:user.role,
       email: user.email,
       type: 'refresh',
     };
