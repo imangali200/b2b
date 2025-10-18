@@ -8,12 +8,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 
 @Module({
-  imports:[UserModule,    JwtModule.registerAsync({
+  imports:[UserModule, ConfigModule,    JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET'), // .env ішіндегі JWT_SECRET
-        signOptions: { expiresIn: '1h' }, // мысалы 1 сағатқа жарамды
+        secret: config.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1h' },
       }),
     }),],
   controllers: [AuthController],
