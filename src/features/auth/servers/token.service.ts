@@ -31,9 +31,11 @@ export class TokenService {
     };
 
     const accessToken = this.jwtService.sign(payloadAccessToken, {
+      secret: this.configService.get<string>('JWT_SECRET'),
       expiresIn: '15m',
     });
     const refreshToken = this.jwtService.sign(payloadRefreshToken, {
+      secret: this.configService.get<string>('JWT_SECRET'),
       expiresIn: '7d',
     });
     return { accessToken, refreshToken };
@@ -60,7 +62,7 @@ export class TokenService {
   async refreshAccessToken(refreshToken: string) {
     const userData = await this.validateRefreshToken(refreshToken);
     const newAccessToken = await this.jwtService.signAsync(
-      { id: userData.id, email: userData.email },
+      { id: userData.id, email: userData.email ,role:userData.role },
       {
         secret: this.configService.get<string>('JWT_SECRET'),
         expiresIn: '15m',

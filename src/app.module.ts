@@ -1,40 +1,23 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './features/auth/auth.module';
 import { UserEntity } from './core/db/entities/user.entity';
 import { UserModule } from './features/user/user.module';
 import { TokenService } from './features/auth/servers/token.service';
 import { BaseService } from './core/services/base.service';
 import { JwtModule } from '@nestjs/jwt';
-import * as fs from 'fs';
+import { getTypeOrmConfig } from './core/config/typeORM.config';
+import { ProfileModule } from './features/profile/profile.module';
+
+
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot([
-      {
-        ttl: 1000,
-        limit: 500,
-      },
-    ]),
     ConfigModule.forRoot({isGlobal:true}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: +configService.get<number>('DB_PORT')!,
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        entities: [UserEntity],
-        synchronize: true,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
+      useFactory: getTypeOrmConfig,
       inject: [ConfigService],
     }),
 
@@ -45,18 +28,15 @@ import * as fs from 'fs';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
-        secret: config.get<string>('JWT_SECRET'),
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
         signOptions: { expiresIn: '1h' },
       }),
     }),
+    ProfileModule,
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
     TokenService,
   ],
 })

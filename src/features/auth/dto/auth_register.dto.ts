@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNumber,
+  isString,
   IsString,
   MaxLength,
   MinLength,
@@ -13,6 +14,14 @@ export class RegisterDto {
   })
   @IsString()
   email: string;
+
+
+  @ApiProperty({
+    description:'write your full name',
+    example:"palenshe palenshe"
+  })
+  @IsString()
+  fullName:string
 
   @ApiProperty({
     description: 'write your password',
@@ -29,4 +38,21 @@ export class RegisterDto {
   })
   @IsString()
   phoneNumber: string;
+
+
+  @IsString()
+  @ApiProperty({
+    description:'write company is name'
+  })
+  companyName:string
+  @IsString()
+  @ApiProperty({
+    description:'write a specification'
+  })
+  specification:string
+  @IsString()
+  @ApiProperty({
+    description:'write a product name'
+  })
+  product:string
 }

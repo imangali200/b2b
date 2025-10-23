@@ -16,6 +16,18 @@ export class UserEntity extends BaseEntities{
     @Column()
     phoneNumber:string
 
+    @Column()
+    fullName:string
+
+    @Column()
+    companyName:string
+
+    @Column()
+    specification:string
+
+    @Column()
+    product:string
+
     @Column({type:'enum',enum:UserRoles,default:UserRoles.User})
     role:UserRoles
     
