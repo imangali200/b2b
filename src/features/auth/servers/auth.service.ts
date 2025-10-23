@@ -8,7 +8,6 @@ import { UserService } from '../../user/user.service';
 import bcrypt from 'node_modules/bcryptjs';
 import { TokenService } from './token.service';
 import { LoginDto } from '../dto/auth_login.dto';
-import { use } from 'passport';
 
 @Injectable()
 export class AuthService {

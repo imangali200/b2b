@@ -8,7 +8,7 @@ export class ProfileController {
   constructor(private readonly profileService: ProfileService) {
   }
   
-  @Get('user')
+  @Get()
  @Auth()
   async getProfile(@Req() req){
    return await this.profileService.getProfile(req.user.email)
