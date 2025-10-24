@@ -5,7 +5,6 @@ import { UserService } from '../user/user.service';
 export class ProfileService {
     constructor(private readonly userService:UserService){}
   async getProfile(email: string) {{
-    return await this.userService.findEmail(email)
-    
+    return await this.userService.findEmailRelations(email)
   }}
 }

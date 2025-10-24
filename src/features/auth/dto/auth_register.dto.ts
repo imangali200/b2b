@@ -38,21 +38,4 @@ export class RegisterDto {
   })
   @IsString()
   phoneNumber: string;
-
-
-  @IsString()
-  @ApiProperty({
-    description:'write company is name'
-  })
-  companyName:string
-  @IsString()
-  @ApiProperty({
-    description:'write a specification'
-  })
-  specification:string
-  @IsString()
-  @ApiProperty({
-    description:'write a product name'
-  })
-  product:string
 }

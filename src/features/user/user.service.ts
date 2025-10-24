@@ -15,4 +15,10 @@ export class UserService extends BaseService<UserEntity> {
   async findEmail(email: string) {
     return this.userRepository.findOneBy({email})
   }
+  async findEmailRelations(email:string){
+    return this.userRepository.findOne({
+      where:{email},
+      relations:['supplier']
+    })
+  }
 }

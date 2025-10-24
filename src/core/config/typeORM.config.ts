@@ -1,6 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { UserEntity } from '../db/entities/user.entity';
+import { SupplierEntity } from '../db/entities/supplier.entity';
 
 export async function getTypeOrmConfig(
   configService: ConfigService,
@@ -12,7 +13,7 @@ export async function getTypeOrmConfig(
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_DATABASE'),
-    entities: [UserEntity],
+    entities: [UserEntity,SupplierEntity],
     synchronize: true,
     ssl: {
       rejectUnauthorized: false,

@@ -6,13 +6,12 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('profile')
 export class ProfileController {
-  constructor(private readonly profileService: ProfileService) {
-  }
-  
+  constructor(private readonly profileService: ProfileService) {}
+
   @Get()
   @ApiBearerAuth()
- @Auth()
-  async getProfile(@Req() req){
-   return await this.profileService.getProfile(req.user.email)
+  @Auth()
+  async getProfile(@Req() req) {
+    return await this.profileService.getProfile(req.user.email);
   }
 }

@@ -9,6 +9,7 @@ import { BaseService } from './core/services/base.service';
 import { JwtModule } from '@nestjs/jwt';
 import { getTypeOrmConfig } from './core/config/typeORM.config';
 import { ProfileModule } from './features/profile/profile.module';
+import { SuppliersModule } from './features/suppliers/suppliers.module';
 
 
 
@@ -34,6 +35,7 @@ import { ProfileModule } from './features/profile/profile.module';
       }),
     }),
     ProfileModule,
+    SuppliersModule,
   ],
   controllers: [],
   providers: [
